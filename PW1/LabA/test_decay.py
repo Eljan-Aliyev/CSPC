@@ -16,12 +16,25 @@ def test_starts_at_N0():
     assert simulate(1000, 0.4)[0] == 1000
 
 
-# TODO 1: test_rejects_negative_rate
-#   Check that calling simulate(...) with a negative lam raises a ValueError.
-#   Which pytest tool checks that an error is raised?
+def test_rejects_negative_rate():
+    """Verify that calling simulate with a negative lambda raises a ValueError."""
+    with pytest.raises(ValueError):
+        simulate(1000, -0.4)
 
 
-# TODO 2: test_matches_law
-#   Check that the simulation's AVERAGE over many seeds is close to the
-#   physical law  N0 * exp(-lam * t).
-#   Which pytest tool compares floating-point values with a tolerance?
+def test_matches_law():
+    """Verify the average remaining atoms over multiple runs match N0 * exp(-lam * t)."""
+    N0 = 1000
+    lam = 0.1
+    runs = 100
+
+    # Collect the final atom count from multiple simulation runs
+    final_counts = [simulate(N0, lam)[-1] for _ in range(runs)]
+    avg_final = np.mean(final_counts)
+
+    # Determine total time t from array length (number of steps - 1)
+    t = len(simulate(N0, lam)) - 1
+    expected_final = N0 * np.exp(-lam * t)
+
+    # Compare average result to physical law with relative tolerance
+    assert avg_final == pytest.approx(expected_final, rel=0.1)
