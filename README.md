@@ -27,3 +27,12 @@ Computer Science for Physics and Chemistry PW1 – Lab A
 **Conclusion:**
 -NumPy usage reduces time consuption significantly. Thanks to Gemini we can handle CSPC course# CSPC - Lab A
 
+## PW2 Lab A: Motion from Tracking Data
+
+### Numerical Results
+* **Mean Acceleration:** -8.58 m/s² (Target: ~ -9.81 m/s²)
+* **Max Position Recovery Difference:** < 1.0 m
+
+### Physical Observations
+* **Noise Amplification in Differentiation:** Numerical differentiation magnifies measurement noise because dividing small random variations by small time intervals ($\Delta t = 0.1\text{ s}$) amplifies fluctuations at each derivative step.
+* **Noise Suppression in Integration:** Numerical integration cancels out random noise through cumulative summation, allowing position $y(t)$ to be accurately restored despite the noisy acceleration data.
